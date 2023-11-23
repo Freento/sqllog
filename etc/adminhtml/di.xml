@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Freento\SqlLog\Ui\DataProvider\Elasticsearch\Lisiting\Columns\Action">
+        <arguments>
+            <argument name="links" xsi:type="array">
+                <item name="detailed_queries_link" xsi:type="array">
+                    <item name="label" xsi:type="string">Detailed queries</item>
+                    <item name="route" xsi:type="string">freento_sql_log/elasticsearch_detailed/view</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

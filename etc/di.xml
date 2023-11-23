@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Freento\SqlLog\Logger\SimpleLoggerInterface" type="Freento\SqlLog\Logger\ElasticLogger"/>
+    <preference for="Magento\Framework\DB\LoggerInterface" type="Freento\SqlLog\Logger\DB\Logger"/>
+    <preference for="Freento\SqlLog\Model\QueryStats\QueryDataInterface" type="Freento\SqlLog\Model\QueryStats\DataJsonFormat"/>
+    <preference for="Freento\SqlLog\Model\Elasticsearch\ClientResolverInterface" type="Freento\SqlLog\Model\Elasticsearch\ClientResolver"/>
+
+    <type name="Freento\SqlLog\Logger\ExceptionLogger\Handler">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/sql_log/exception.log</argument>
+        </arguments>
+    </type>
+
+    <type name="Freento\SqlLog\Logger\ExceptionLogger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">sql_log_exception</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="object">Freento\SqlLog\Logger\ExceptionLogger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Freento\SqlLog\Logger\DB\Logger">
+        <arguments>
+            <argument name="loggerList" xsi:type="array">
+                <item name="0" xsi:type="object">Freento\SqlLog\Logger\ElasticLogger</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Freento\SqlLog\Model\Logs\Elasticsearch\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="sql_logs_elasticsearch_listing_data_source" xsi:type="string">Freento\SqlLog\Model\Logs\Elasticsearch\Collection</item>
+                <item name="elasticsearch_detailed_sql_logs_data_source" xsi:type="string">Freento\SqlLog\Model\Logs\Elasticsearch\Detailed\Collection</item>
+                <item name="elasticsearch_trace_sql_logs_data_source" xsi:type="string">Freento\SqlLog\Model\Logs\Elasticsearch\Trace\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Freento\SqlLog\Helper\Config">
+        <arguments>
+            <argument name="scopeConfig" xsi:type="object">Magento\Framework\App\Config\ScopeConfigInterface\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Freento\SqlLog\Helper\Config\File">
+        <arguments>
+            <argument name="defaultConfigs" xsi:type="array">
+                <item name="disallowed_urls" xsi:type="string">^\/admin\/</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Freento\SqlLog\Model\ActionInfoType\Resolver">
+        <arguments>
+            <argument name="resolvers" xsi:type="array">
+                <item name="cli_type_resolver" xsi:type="object">Freento\SqlLog\Model\ActionInfoType\Resolver\ConfigDriven\Cli</item>
+                <item name="url_type_resolver" xsi:type="object">Freento\SqlLog\Model\ActionInfoType\Resolver\ConfigDriven\Url</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

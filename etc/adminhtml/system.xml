@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="freento" translate="label" sortOrder="750">
+            <label>Freento</label>
+        </tab>
+        <section id="freento_sqllog" translate="label" sortOrder="350" showInDefault="1">
+            <label>Sql Logger</label>
+            <tab>freento</tab>
+            <resource>Freento_SqlLog::sqllog_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="5" showInDefault="1">
+                <label>General</label>
+                <field id="prepare_elastic" translate="button_label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Prepare Elastic</label>
+                    <frontend_model>Freento\SqlLog\Block\Adminhtml\System\Config\ButtonWithConfirmation</frontend_model>
+                    <button_url>freento_sql_log/config/prepareelastic</button_url>
+                    <attribute type="confirmation_message">This action will clear existing SQL query data. Are you sure?</attribute>
+                </field>
+                <field id="enable_on_web_requests" type="select"  translate="label" sortOrder="20" showInDefault="1">
+                    <label>Enable for Web</label>
+                    <backend_model>Freento\SqlLog\Model\Config\Backend\LocalConfigs</backend_model>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allowed_urls" type="textarea" translate="label" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Allowed URLs (if blank - all URLs will be allowed)</label>
+                    <backend_model>Freento\SqlLog\Model\Config\Backend\LocalConfigs</backend_model>
+                    <comment>
+                        <![CDATA[
+                        Format: regex
+                        <br> Note: only checks the URL path
+                        <br> Examples:
+                        <br> <code style="background: #eee; padding: 1px 2px">^\/admin\/</code>  -  admin pages with front name "admin"
+                        <br> <code style="background: #eee; padding: 1px 2px">^\/checkout\/($|#|\?)</code> - default magento checkout page
+                        <br> <code style="background: #eee; padding: 1px 2px">^\/media</code> - media (e.g. images)
+                        <br> <code style="background: #eee; padding: 1px 2px">^\/static</code> - static content
+                        <br> <code style="background: #eee; padding: 1px 2px">^\/($|\?|#)</code> - home page
+                        <br> You can add expressions to each line to observer different pages
+                        ]]>
+                    </comment>
+                    <depends>
+                        <field id="enable_on_web_requests">1</field>
+                    </depends>
+                </field>
+                <field id="disallowed_urls" type="textarea" translate="label" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Disallowed URLs</label>
+                    <backend_model>Freento\SqlLog\Model\Config\Backend\LocalConfigs</backend_model>
+                    <comment>
+                        <![CDATA[
+                        Format: regex
+                        <br> Note: only checks the URL path
+                        <br> Examples:
+                        <br> <code style="background: #eee; padding: 1px 2px">^\/admin\/</code>  -  admin pages with front name "admin"
+                        <br> <code style="background: #eee; padding: 1px 2px">^\/checkout\/($|#|\?)</code> - default magento checkout page
+                        <br> <code style="background: #eee; padding: 1px 2px">^\/media</code> - media (e.g. images)
+                        <br> <code style="background: #eee; padding: 1px 2px">^\/static</code> - static content
+                        <br> <code style="background: #eee; padding: 1px 2px">^\/($|\?|#)</code> - home page
+                        <br> You can add expressions to each line to observer different pages
+                        ]]>
+                    </comment>
+                    <depends>
+                        <field id="enable_on_web_requests">1</field>
+                    </depends>
+                </field>
+                <field id="enable_in_cli" type="select"  translate="label" sortOrder="50" showInDefault="1">
+                    <label>Enable in CLI</label>
+                    <backend_model>Freento\SqlLog\Model\Config\Backend\LocalConfigs</backend_model>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allowed_commands" type="textarea" translate="label" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Allowed commands (if blank - all commands will be allowed)</label>
+                    <backend_model>Freento\SqlLog\Model\Config\Backend\LocalConfigs</backend_model>
+                    <comment>
+                        <![CDATA[
+                        Format: regex
+                        <br> Example:
+                        <br> <code style="background: #eee; padding: 1px 2px">queue:consumers:start</code> - queue start
+                        <br> <code style="background: #eee; padding: 1px 2px">setup:</code> - all from setup namespace
+                        <br> <code style="background: #eee; padding: 1px 2px">sys:cron</code> - all cron commands (e.g. run)
+                        <br> You can add expressions to each line to observe different cli
+                        ]]>
+                    </comment>
+                    <depends>
+                        <field id="enable_in_cli">1</field>
+                    </depends>
+                </field>
+                <field id="disallowed_commands" type="textarea" translate="label" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Disallowed commands</label>
+                    <backend_model>Freento\SqlLog\Model\Config\Backend\LocalConfigs</backend_model>
+                    <comment>
+                        <![CDATA[
+                        Format: regex
+                        <br> Example:
+                        <br> <code style="background: #eee; padding: 1px 2px">queue:consumers:start</code> - queue start
+                        <br> <code style="background: #eee; padding: 1px 2px">setup:</code> - all from setup namespace
+                        <br> <code style="background: #eee; padding: 1px 2px">sys:cron</code> - all cron commands (e.g. run)
+                        <br> You can add expressions to each line to observe different cli
+                        ]]>
+                    </comment>
+                    <depends>
+                        <field id="enable_in_cli">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

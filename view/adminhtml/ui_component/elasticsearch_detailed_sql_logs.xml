@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">elasticsearch_detailed_sql_logs.elasticsearch_detailed_sql_logs_data_source</item>
+            <item name="deps" xsi:type="string">elasticsearch_detailed_sql_logs.elasticsearch_detailed_sql_logs_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">sql_logs_elasticsearch_columns</item>
+    </argument>
+    <dataSource name="elasticsearch_detailed_sql_logs_data_source" component="Freento_SqlLog/js/grid/elasticsearch/provider">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">id</param>
+            </storageConfig>
+        </settings>
+        <dataProvider class="Freento\SqlLog\Ui\DataProvider\Elasticsearch\SqlLogDataProvider" name="elasticsearch_detailed_sql_logs_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="sticky" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <bookmark name="bookmarks"/>
+        <filters name="listing_filters"/>
+        <columnsControls name="columns_controls"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="sql_logs_elasticsearch_columns">
+        <column name="type" sortOrder="15">
+            <settings>
+                <label translate="true">Type</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+        <column name="query" sortOrder="25">
+            <settings>
+                <label translate="true">Query</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+        <column name="executing_time" sortOrder="35">
+            <settings>
+                <label translate="true">Executing time</label>
+                <filter>textRange</filter>
+            </settings>
+        </column>
+        <column name="start_time" sortOrder="45">
+            <settings>
+                <label translate="true">Start time</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class = "Freento\SqlLog\Ui\DataProvider\Elasticsearch\Detailed\Columns\Action" sortOrder="55">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">107</item>
+                    <item name="indexField" xsi:type="string">id</item>
+                </item>
+            </argument>
+        </actionsColumn>
+    </columns>
+</listing>

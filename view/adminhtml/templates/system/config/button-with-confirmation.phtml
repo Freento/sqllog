@@ -1,0 +1,24 @@
+<?php
+/** @var \Freento\SqlLog\Block\Adminhtml\System\Config\ButtonWithConfirmation $block */
+$scope = 'freento-sql_logger-button_with_confirmation-' . uniqid();
+?>
+<div data-bind="scope: '<?=$scope?>'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "<?=$scope?>": {
+                        "component": "Freento_SqlLog/js/config/button-with-confirmation",
+                        "ajaxUrl": "<?= $block->getAjaxUrl() ?>",
+                        "buttonLabel": "<?= $block->getButtonLabel() ?>",
+                        "confirmationMessage": "<?= $block->getConfirmationMessage() ?>"
+                    }
+                }
+            }
+        }
+    }
+</script>

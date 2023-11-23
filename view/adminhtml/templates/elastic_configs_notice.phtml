@@ -1,0 +1,14 @@
+<?php
+/** @var $block \Freento\SqlLog\Block\Adminhtml\ElasticConfigsNotice */
+/** @var $escaper \Magento\Framework\Escaper */
+?>
+<?php if($block->isShow()): ?>
+    <div class="messages">
+        <div class="message message-notice notice">
+            <div data-ui-id="messages-message-notice">
+                <?= $block->escapeHtml(__('Can not connect to elasticsearch server. Please, press Prepare Elastic button in module configs to make it work.')) ?>
+                <a href="<?= $escaper->escapeUrl($block->getConfigPageUrl()) ?>"><?= $block->escapeHtml(__('Go to configs')) ?></a>.
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

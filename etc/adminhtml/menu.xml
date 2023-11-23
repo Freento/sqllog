@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+            id="Freento_SqlLog::sql_log"
+            title="SQL Log"
+            translate="title"
+            module="Freento_SqlLog"
+            parent="Freento_PerformanceSuite::fps"
+            sortOrder="10"
+            resource="Freento_SqlLog::sql_log"
+        />
+        <add
+            id="Freento_SqlLog::sql_log_requests_elastic"
+            title="SQL Requests Log"
+            translate="title"
+            module="Freento_SqlLog"
+            action="freento_sql_log/index/elasticsearch"
+            parent="Freento_SqlLog::sql_log"
+            sortOrder="20"
+            resource="Freento_SqlLog::sql_log_requests"
+        />
+        <add
+            id="Freento_SqlLog::sql_log_configs"
+            title="Configuration"
+            translate="title"
+            module="Freento_SqlLog"
+            action="adminhtml/system_config/edit/section/freento_sqllog"
+            parent="Freento_SqlLog::sql_log"
+            sortOrder="100"
+            resource="Freento_SqlLog::sql_log_configs"
+        />
+    </menu>
+</config>
