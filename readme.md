@@ -26,6 +26,12 @@ Gain control and insight into your Magento database interactions with the Freent
 
 ---
 
+## Installation
+
+Usual [Magento module installation steps](https://experienceleague.adobe.com/docs/commerce-operations/installation-guide/tutorials/extensions.html?lang=en) using composer
+
+    composer require freento/sqllog
+
 ## Use Cases
 
 __Note: Using the Freento SQL Log Module on production servers is not recommended due to potential performance impacts__
